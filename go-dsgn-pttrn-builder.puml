@@ -1,0 +1,50 @@
+@startuml
+namespace main {
+    class director << (S,Aquamarine) >> {
+        - builder iBuilder
+
+        - setBuilder(b iBuilder) 
+        - buildHouse() house
+
+    }
+    class house << (S,Aquamarine) >> {
+        - windowType string
+        - doorType string
+        - floor int
+
+    }
+    interface iBuilder  {
+        - setWindowType() 
+        - setDoorType() 
+        - setNumFloor() 
+        - getHouse() house
+
+    }
+    class iglooBuilder << (S,Aquamarine) >> {
+        - windowType string
+        - doorType string
+        - floor int
+
+        - setWindowType() 
+        - setDoorType() 
+        - setNumFloor() 
+        - getHouse() house
+
+    }
+    class normalBuilder << (S,Aquamarine) >> {
+        - windowType string
+        - doorType string
+        - floor int
+
+        - setWindowType() 
+        - setDoorType() 
+        - setNumFloor() 
+        - getHouse() house
+
+    }
+}
+
+"main.iBuilder" <|-- "main.iglooBuilder"
+"main.iBuilder" <|-- "main.normalBuilder"
+
+@enduml
