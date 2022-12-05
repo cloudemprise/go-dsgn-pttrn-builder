@@ -89,8 +89,7 @@ type customElementA struct {
 
 // Constructor : zeroed (empty) undefined blue-print Complex-Element
 func newCustomElementA() *customElementA {
-	var element = new(customElementA)
-	return element
+	return new(customElementA)
 }
 
 // Utility method Y
@@ -106,10 +105,10 @@ func (elem *customElementA) setAttributeZ() {
 // concrete customElementA (Complex-Element) fabricator
 func (spec *customElementA) newComplexElement() complexElement {
 	// create and assemble a new Complex-Element
-	var element = new(complexElement)
-	element.attributeY = spec.attributeY
-	element.attributeZ = spec.attributeZ
-	return *element
+	return complexElement{
+		spec.attributeY,
+		spec.attributeZ,
+	}
 }
 
 // END : customElementA
@@ -130,8 +129,7 @@ type customElementB struct {
 
 // Constructor : zeroed (empty) undefined blue-print Complex-Element
 func newCustomElementB() *customElementB {
-	var element = new(customElementB)
-	return element
+	return new(customElementB)
 }
 
 // Utility method Y
@@ -147,10 +145,10 @@ func (elem *customElementB) setAttributeZ() {
 // concrete customElementB (Complex-Element) fabricator
 func (spec *customElementB) newComplexElement() complexElement {
 	// create and assemble a new Complex-Element
-	var element = new(complexElement)
-	element.attributeY = spec.attributeY
-	element.attributeZ = spec.attributeZ
-	return *element
+	return complexElement{
+		spec.attributeY,
+		spec.attributeZ,
+	}
 }
 
 // END : customElementB
