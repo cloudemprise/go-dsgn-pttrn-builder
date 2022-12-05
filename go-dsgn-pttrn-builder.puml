@@ -1,30 +1,25 @@
 @startuml
 namespace main {
     class complexElement << (S,Aquamarine) >> {
-        - attributeA string
-        - attributeB string
-        - attributeC int
+        - attributeY string
+        - attributeZ int
 
     }
     class customElementA << (S,Aquamarine) >> {
-        - attributeA string
-        - attributeB string
-        - attributeC int
+        - attributeY string
+        - attributeZ int
 
-        - setAttributeA() 
-        - setAttributeB() 
-        - setAttributeC() 
+        - setAttributeY() 
+        - setAttributeZ() 
         - newComplexElement() complexElement
 
     }
     class customElementB << (S,Aquamarine) >> {
-        - attributeA string
-        - attributeB string
-        - attributeC int
+        - attributeY string
+        - attributeZ int
 
-        - setAttributeA() 
-        - setAttributeB() 
-        - setAttributeC() 
+        - setAttributeY() 
+        - setAttributeZ() 
         - newComplexElement() complexElement
 
     }
@@ -36,9 +31,8 @@ namespace main {
 
     }
     interface iBuilder  {
-        - setAttributeA() 
-        - setAttributeB() 
-        - setAttributeC() 
+        - setAttributeY() 
+        - setAttributeZ() 
         - newComplexElement() complexElement
 
     }

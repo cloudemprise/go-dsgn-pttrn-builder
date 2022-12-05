@@ -31,9 +31,8 @@ func (d *director) setBuilderConfiguration(specification iBuilder) {
 
 // abstract Complex-Element Builder
 func (d *director) buildComplexElement() complexElement {
-	d.buildSpecification.setAttributeA()
-	d.buildSpecification.setAttributeB()
-	d.buildSpecification.setAttributeC()
+	d.buildSpecification.setAttributeY()
+	d.buildSpecification.setAttributeZ()
 	return d.buildSpecification.newComplexElement()
 }
 
@@ -46,18 +45,16 @@ func (d *director) buildComplexElement() complexElement {
 
 // The data-structure representation of a Complex-Element.
 type complexElement struct {
-	attributeA string
-	attributeB string
-	attributeC int
+	attributeY string
+	attributeZ int
 }
 
 // The iBuilder abstraction defines the behaviours required to create
 // and fetch (build) a Complex-Element.
 type iBuilder interface {
 	// utility methods to populate a Complex-Element
-	setAttributeA()
-	setAttributeB()
-	setAttributeC()
+	setAttributeY()
+	setAttributeZ()
 	// concrete element fabricator
 	newComplexElement() complexElement
 }
@@ -92,9 +89,8 @@ func newElementBuilder(elementType string) iBuilder {
 // A Complex-Element data-structure to contain the
 // blue-print of a particular specification.
 type customElementA struct {
-	attributeA string
-	attributeB string
-	attributeC int
+	attributeY string
+	attributeZ int
 }
 
 // Constructor : zeroed (empty) undefined blue-print Complex-Element
@@ -103,28 +99,22 @@ func newCustomElementA() *customElementA {
 	return element
 }
 
-// Utility method A
-func (elem *customElementA) setAttributeA() {
-	elem.attributeA = "My First Attribute A"
+// Utility method Y
+func (elem *customElementA) setAttributeY() {
+	elem.attributeY = "Attribute Y Custom Element A"
 }
 
-// Utility method B
-func (elem *customElementA) setAttributeB() {
-	elem.attributeB = "My First Attribute B"
-}
-
-// Utility method C
-func (elem *customElementA) setAttributeC() {
-	elem.attributeC = 1
+// Utility method Z
+func (elem *customElementA) setAttributeZ() {
+	elem.attributeZ = 69
 }
 
 // concrete customElementA (Complex-Element) fabricator
 func (spec *customElementA) newComplexElement() complexElement {
 	// create and assemble a new Complex-Element
 	var element = new(complexElement)
-	element.attributeA = spec.attributeA
-	element.attributeB = spec.attributeB
-	element.attributeC = spec.attributeC
+	element.attributeY = spec.attributeY
+	element.attributeZ = spec.attributeZ
 	return *element
 }
 
@@ -140,9 +130,8 @@ func (spec *customElementA) newComplexElement() complexElement {
 // A Complex-Element data-structure to contain the
 // blue-print of a particular specification.
 type customElementB struct {
-	attributeA string
-	attributeB string
-	attributeC int
+	attributeY string
+	attributeZ int
 }
 
 // Constructor : zeroed (empty) undefined blue-print Complex-Element
@@ -151,28 +140,22 @@ func newCustomElementB() *customElementB {
 	return element
 }
 
-// Utility method A
-func (elem *customElementB) setAttributeA() {
-	elem.attributeA = "My First Attribute A"
+// Utility method Y
+func (elem *customElementB) setAttributeY() {
+	elem.attributeY = "Attribute Y Custom Element B"
 }
 
-// Utility method B
-func (elem *customElementB) setAttributeB() {
-	elem.attributeB = "My First Attribute B"
-}
-
-// Utility method C
-func (elem *customElementB) setAttributeC() {
-	elem.attributeC = 1
+// Utility method Z
+func (elem *customElementB) setAttributeZ() {
+	elem.attributeZ = 13
 }
 
 // concrete customElementB (Complex-Element) fabricator
 func (spec *customElementB) newComplexElement() complexElement {
 	// create and assemble a new Complex-Element
 	var element = new(complexElement)
-	element.attributeA = spec.attributeA
-	element.attributeB = spec.attributeB
-	element.attributeC = spec.attributeC
+	element.attributeY = spec.attributeY
+	element.attributeZ = spec.attributeZ
 	return *element
 }
 
@@ -184,22 +167,30 @@ func (spec *customElementB) newComplexElement() complexElement {
 
 func main() {
 
+	// create a director to coordinate object creation.
 	myDirector := newDirector()
 
-	myElementRequest := newElementBuilder("customElementA")
-	myDirector.setBuilderConfiguration(myElementRequest)
+	// ___
+	// create a new builder A
+	my1stRequest := newElementBuilder("customElementA")
+	// set builder configuration
+	myDirector.setBuilderConfiguration(my1stRequest)
+	// create the specified object
+	my1stElement := myDirector.buildComplexElement()
 
-	firstComplexElement := myDirector.buildComplexElement()
+	// validate object specification
+	fmt.Printf("1st Complex-Element Attribute Y: %s\n", my1stElement.attributeY)
+	fmt.Printf("1st Complex-Element Attribute Z: %d\n", my1stElement.attributeZ)
 
-	fmt.Printf("First Complex-Element Attribute A: %s\n", firstComplexElement.attributeA)
-	fmt.Printf("First Complex-Element Attribute B: %s\n", firstComplexElement.attributeB)
-	fmt.Printf("First Complex-Element Attribute C: %d\n", firstComplexElement.attributeC)
+	// ___
+	// create a new builder B
+	my2ndRequest := newElementBuilder("customElementB")
+	// set builder configuration
+	myDirector.setBuilderConfiguration(my2ndRequest)
+	// create the specified object
+	my2ndElement := myDirector.buildComplexElement()
 
-	anotherElementRequest := newElementBuilder("customElementB")
-	myDirector.setBuilderConfiguration(anotherElementRequest)
-	secondComplexElement := myDirector.buildComplexElement()
-
-	fmt.Printf("Second Complex-Element Attribute A: %s\n", secondComplexElement.attributeA)
-	fmt.Printf("Second Complex-Element Attribute B: %s\n", secondComplexElement.attributeB)
-	fmt.Printf("Second Complex-Element Attribute C: %d\n", secondComplexElement.attributeC)
+	// validate object specification
+	fmt.Printf("2nd Complex-Element Attribute Y: %s\n", my2ndElement.attributeY)
+	fmt.Printf("2nd Complex-Element Attribute Z: %d\n", my2ndElement.attributeZ)
 }
