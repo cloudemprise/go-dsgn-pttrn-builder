@@ -1,44 +1,53 @@
-@startuml
-namespace main {
+@startuml builder
+
+namespace builder {
     class complexElement << (S,Aquamarine) >> {
         - attributeY string
         - attributeZ int
 
     }
-    class customElementA << (S,Aquamarine) >> {
+     class customElementA << (S,Aquamarine) >> {
         - attributeY string
         - attributeZ int
 
-        - setAttributeY() 
-        - setAttributeZ() 
-        - newComplexElement() complexElement
+        + setAttributeY() 
+        + setAttributeZ() 
+        + newComplexElement() complexElement
 
     }
     class customElementB << (S,Aquamarine) >> {
         - attributeY string
         - attributeZ int
 
-        - setAttributeY() 
-        - setAttributeZ() 
-        - newComplexElement() complexElement
+        + setAttributeY() 
+        + setAttributeZ() 
+        + newComplexElement() complexElement
 
     }
     class director << (S,Aquamarine) >> {
         - buildSpecification iBuilder
 
-        - setBuilderConfiguration(specification iBuilder) 
-        - buildComplexElement() complexElement
+        + setBuilderConfiguration(specification iBuilder) 
+        + buildComplexElement() complexElement
 
     }
     interface iBuilder  {
-        - setAttributeY() 
-        - setAttributeZ() 
-        - newComplexElement() complexElement
-
+        + setAttributeY() 
+        + setAttributeZ() 
+        + newComplexElement() complexElement
     }
 }
 
-"main.iBuilder" <|-- "main.customElementA"
-"main.iBuilder" <|-- "main.customElementB"
+"builder.director" *-- "builder.iBuilder"
+
+/' together {
+    class builder.customElementA
+    class builder.customElementB
+} '/
+"builder.iBuilder" <|-- "builder.customElementA"
+"builder.iBuilder" <|-- "builder.customElementB"
+
+'hide builder.complexElement
+"builder.iBuilder" .> "builder.complexElement"
 
 @enduml
