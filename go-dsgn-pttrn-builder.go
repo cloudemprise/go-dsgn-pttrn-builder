@@ -1,11 +1,5 @@
 package main
 
-/*
-	Reference :
-
-	https://golangbyexample.com/builder-pattern-golang/
-*/
-
 import "fmt"
 
 // v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
