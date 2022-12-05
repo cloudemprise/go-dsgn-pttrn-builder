@@ -8,137 +8,198 @@ package main
 
 import "fmt"
 
-// iBuilder.go
+// v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
+// START : director
 
-type iBuilder interface {
-	setWindowType()
-	setDoorType()
-	setNumFloor()
-	getHouse() house
+// directory Object contains the specification of how
+// a Complex-Element is to be built.
+type director struct {
+	buildSpecification iBuilder
 }
 
-func getBuilder(builderType string) iBuilder {
-	if builderType == "normal" {
-		return &normalBuilder{}
+// A free-standing director constructor.
+// Note: returns an zeroed (empty) Object
+func newDirector() *director {
+	var d = new(director)
+	return d
+}
+
+// Pass-in specification of a Complex-Element.
+func (d *director) setBuilderConfiguration(specification iBuilder) {
+	d.buildSpecification = specification
+}
+
+// abstract Complex-Element Builder
+func (d *director) buildComplexElement() complexElement {
+	d.buildSpecification.setAttributeA()
+	d.buildSpecification.setAttributeB()
+	d.buildSpecification.setAttributeC()
+	return d.buildSpecification.newComplexElement()
+}
+
+// END : director
+// ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
+// START : iBuilder
+
+// The data-structure representation of a Complex-Element.
+type complexElement struct {
+	attributeA string
+	attributeB string
+	attributeC int
+}
+
+// The iBuilder abstraction defines the behaviours required to create
+// and fetch (build) a Complex-Element.
+type iBuilder interface {
+	// utility methods to populate a Complex-Element
+	setAttributeA()
+	setAttributeB()
+	setAttributeC()
+	// concrete element fabricator
+	newComplexElement() complexElement
+}
+
+// A free-standing function to select and create which
+// Complex-Object specification is to be fabricated.
+func newElementBuilder(elementType string) iBuilder {
+	// customElementA implements iBuilder
+	if elementType == "customElementA" {
+		element := newCustomElementA()
+		// Note: returns an zeroed (empty) Object
+		return element
 	}
-	if builderType == "igloo" {
-		return &iglooBuilder{}
+	// customElementB implements iBuilder
+	if elementType == "customElementB" {
+		element := newCustomElementB()
+		// Note: returns an zeroed (empty) Object
+		return element
 	}
 	return nil
 }
 
-// normalBuilder.go
+// END : iBuilder
+// ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-type normalBuilder struct {
-	windowType string
-	doorType   string
-	floor      int
+// v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
+// START : customElementA
+// The following implements the iBuilder interface as a blue-print for a
+// particular permutation of the Complex-Object specification.
+
+// A Complex-Element data-structure to contain the
+// blue-print of a particular specification.
+type customElementA struct {
+	attributeA string
+	attributeB string
+	attributeC int
 }
 
-func newNormalBuilder() *normalBuilder {
-	return &normalBuilder{}
+// Constructor : zeroed (empty) undefined blue-print Complex-Element
+func newCustomElementA() *customElementA {
+	var element = new(customElementA)
+	return element
 }
 
-func (b *normalBuilder) setWindowType() {
-	b.windowType = "Wooden Window"
+// Utility method A
+func (elem *customElementA) setAttributeA() {
+	elem.attributeA = "My First Attribute A"
 }
 
-func (b *normalBuilder) setDoorType() {
-	b.doorType = "Wooden Door"
+// Utility method B
+func (elem *customElementA) setAttributeB() {
+	elem.attributeB = "My First Attribute B"
 }
 
-func (b *normalBuilder) setNumFloor() {
-	b.floor = 2
+// Utility method C
+func (elem *customElementA) setAttributeC() {
+	elem.attributeC = 1
 }
 
-func (b *normalBuilder) getHouse() house {
-	return house{
-		doorType:   b.doorType,
-		windowType: b.windowType,
-		floor:      b.floor,
-	}
+// concrete customElementA (Complex-Element) fabricator
+func (spec *customElementA) newComplexElement() complexElement {
+	// create and assemble a new Complex-Element
+	var element = new(complexElement)
+	element.attributeA = spec.attributeA
+	element.attributeB = spec.attributeB
+	element.attributeC = spec.attributeC
+	return *element
 }
 
-// iglooBuilder.go
+// END : customElementA
+// ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-type iglooBuilder struct {
-	windowType string
-	doorType   string
-	floor      int
+// v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v
+// START : customElementB
+// The following implements the iBuilder interface as a blue-print for a
+// particular permutation of the Complex-Object specification.
+
+// A Complex-Element data-structure to contain the
+// blue-print of a particular specification.
+type customElementB struct {
+	attributeA string
+	attributeB string
+	attributeC int
 }
 
-func newIglooBuilder() *iglooBuilder {
-	return &iglooBuilder{}
+// Constructor : zeroed (empty) undefined blue-print Complex-Element
+func newCustomElementB() *customElementB {
+	var element = new(customElementB)
+	return element
 }
 
-func (b *iglooBuilder) setWindowType() {
-	b.windowType = "Snow Window"
+// Utility method A
+func (elem *customElementB) setAttributeA() {
+	elem.attributeA = "My First Attribute A"
 }
 
-func (b *iglooBuilder) setDoorType() {
-	b.doorType = "Snow Door"
+// Utility method B
+func (elem *customElementB) setAttributeB() {
+	elem.attributeB = "My First Attribute B"
 }
 
-func (b *iglooBuilder) setNumFloor() {
-	b.floor = 1
+// Utility method C
+func (elem *customElementB) setAttributeC() {
+	elem.attributeC = 1
 }
 
-func (b *iglooBuilder) getHouse() house {
-	return house{
-		doorType:   b.doorType,
-		windowType: b.windowType,
-		floor:      b.floor,
-	}
+// concrete customElementB (Complex-Element) fabricator
+func (spec *customElementB) newComplexElement() complexElement {
+	// create and assemble a new Complex-Element
+	var element = new(complexElement)
+	element.attributeA = spec.attributeA
+	element.attributeB = spec.attributeB
+	element.attributeC = spec.attributeC
+	return *element
 }
 
-// house.go
-
-type house struct {
-	windowType string
-	doorType   string
-	floor      int
-}
-
-// director.go
-
-type director struct {
-	builder iBuilder
-}
-
-func newDirector(b iBuilder) *director {
-	return &director{
-		builder: b,
-	}
-}
-
-func (d *director) setBuilder(b iBuilder) {
-	d.builder = b
-}
-
-func (d *director) buildHouse() house {
-	d.builder.setDoorType()
-	d.builder.setWindowType()
-	d.builder.setNumFloor()
-	return d.builder.getHouse()
-}
+// END : customElementB
+// ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // main.go
 
 func main() {
-	normalBuilder := getBuilder("normal")
-	iglooBuilder := getBuilder("igloo")
 
-	director := newDirector(normalBuilder)
-	normalHouse := director.buildHouse()
+	myDirector := newDirector()
 
-	fmt.Printf("Normal House Door Type: %s\n", normalHouse.doorType)
-	fmt.Printf("Normal House Window Type: %s\n", normalHouse.windowType)
-	fmt.Printf("Normal House Num Floor: %d\n", normalHouse.floor)
+	myElementRequest := newElementBuilder("customElementA")
+	myDirector.setBuilderConfiguration(myElementRequest)
 
-	director.setBuilder(iglooBuilder)
-	iglooHouse := director.buildHouse()
+	firstComplexElement := myDirector.buildComplexElement()
 
-	fmt.Printf("\nIgloo House Door Type: %s\n", iglooHouse.doorType)
-	fmt.Printf("Igloo House Window Type: %s\n", iglooHouse.windowType)
-	fmt.Printf("Igloo House Num Floor: %d\n", iglooHouse.floor)
+	fmt.Printf("First Complex-Element Attribute A: %s\n", firstComplexElement.attributeA)
+	fmt.Printf("First Complex-Element Attribute B: %s\n", firstComplexElement.attributeB)
+	fmt.Printf("First Complex-Element Attribute C: %d\n", firstComplexElement.attributeC)
+
+	anotherElementRequest := newElementBuilder("customElementB")
+	myDirector.setBuilderConfiguration(anotherElementRequest)
+	secondComplexElement := myDirector.buildComplexElement()
+
+	fmt.Printf("Second Complex-Element Attribute A: %s\n", secondComplexElement.attributeA)
+	fmt.Printf("Second Complex-Element Attribute B: %s\n", secondComplexElement.attributeB)
+	fmt.Printf("Second Complex-Element Attribute C: %d\n", secondComplexElement.attributeC)
 }

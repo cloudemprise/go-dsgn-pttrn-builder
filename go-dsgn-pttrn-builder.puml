@@ -1,50 +1,50 @@
 @startuml
 namespace main {
-    class director << (S,Aquamarine) >> {
-        - builder iBuilder
-
-        - setBuilder(b iBuilder) 
-        - buildHouse() house
+    class complexElement << (S,Aquamarine) >> {
+        - attributeA string
+        - attributeB string
+        - attributeC int
 
     }
-    class house << (S,Aquamarine) >> {
-        - windowType string
-        - doorType string
-        - floor int
+    class customElementA << (S,Aquamarine) >> {
+        - attributeA string
+        - attributeB string
+        - attributeC int
+
+        - setAttributeA() 
+        - setAttributeB() 
+        - setAttributeC() 
+        - newComplexElement() complexElement
+
+    }
+    class customElementB << (S,Aquamarine) >> {
+        - attributeA string
+        - attributeB string
+        - attributeC int
+
+        - setAttributeA() 
+        - setAttributeB() 
+        - setAttributeC() 
+        - newComplexElement() complexElement
+
+    }
+    class director << (S,Aquamarine) >> {
+        - buildSpecification iBuilder
+
+        - setBuilderConfiguration(specification iBuilder) 
+        - buildComplexElement() complexElement
 
     }
     interface iBuilder  {
-        - setWindowType() 
-        - setDoorType() 
-        - setNumFloor() 
-        - getHouse() house
-
-    }
-    class iglooBuilder << (S,Aquamarine) >> {
-        - windowType string
-        - doorType string
-        - floor int
-
-        - setWindowType() 
-        - setDoorType() 
-        - setNumFloor() 
-        - getHouse() house
-
-    }
-    class normalBuilder << (S,Aquamarine) >> {
-        - windowType string
-        - doorType string
-        - floor int
-
-        - setWindowType() 
-        - setDoorType() 
-        - setNumFloor() 
-        - getHouse() house
+        - setAttributeA() 
+        - setAttributeB() 
+        - setAttributeC() 
+        - newComplexElement() complexElement
 
     }
 }
 
-"main.iBuilder" <|-- "main.iglooBuilder"
-"main.iBuilder" <|-- "main.normalBuilder"
+"main.iBuilder" <|-- "main.customElementA"
+"main.iBuilder" <|-- "main.customElementB"
 
 @enduml
