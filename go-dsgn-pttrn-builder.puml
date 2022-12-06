@@ -1,11 +1,6 @@
 @startuml builder
 
 namespace builder {
-    class complexElement << (S,Aquamarine) >> {
-        - attributeY string
-        - attributeZ int
-
-    }
      class customElementA << (S,Aquamarine) >> {
         - attributeY string
         - attributeZ int
@@ -36,6 +31,11 @@ namespace builder {
         + setAttributeZ() 
         + newComplexElement() complexElement
     }
+    class complexElement << (S,Aquamarine) >> {
+        - attributeY string
+        - attributeZ int
+
+    }
 }
 
 "builder.director" *-- "builder.iBuilder"
@@ -44,10 +44,12 @@ namespace builder {
     class builder.customElementA
     class builder.customElementB
 } '/
-"builder.iBuilder" <|-- "builder.customElementA"
-"builder.iBuilder" <|-- "builder.customElementB"
+"builder.iBuilder" <|.. "builder.customElementA"
+"builder.iBuilder" <|.. "builder.customElementB"
 
 'hide builder.complexElement
-"builder.iBuilder" .> "builder.complexElement"
+'"builder.iBuilder" .> "builder.complexElement"
+"builder.iBuilder" .[dotted,thickness=1]> "builder.complexElement"
+
 
 @enduml
