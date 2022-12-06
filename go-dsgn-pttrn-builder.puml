@@ -1,35 +1,36 @@
 @startuml builder
 
 namespace builder {
-     class customElementA << (S,Aquamarine) >> {
+    class customElementA << (S,Aquamarine) >> {
         - attributeY string
         - attributeZ int
 
-        + setAttributeY() 
-        + setAttributeZ() 
-        + newComplexElement() complexElement
+        - setAttributeY() 
+        - setAttributeZ() 
+        - newComplexElement() complexElement
 
     }
     class customElementB << (S,Aquamarine) >> {
         - attributeY string
         - attributeZ int
 
-        + setAttributeY() 
-        + setAttributeZ() 
-        + newComplexElement() complexElement
+        - setAttributeY() 
+        - setAttributeZ() 
+        - newComplexElement() complexElement
 
     }
     class director << (S,Aquamarine) >> {
-        - buildSpecification iBuilder
+        - builderConfiguration iBuilder
 
-        + setBuilderConfiguration(specification iBuilder) 
-        + buildComplexElement() complexElement
+        - setBuilderConfiguration(builderConfiguration iBuilder) 
+        - getComplexElement() complexElement
 
     }
     interface iBuilder  {
-        + setAttributeY() 
-        + setAttributeZ() 
-        + newComplexElement() complexElement
+        - setAttributeY() 
+        - setAttributeZ() 
+        - newComplexElement() complexElement
+
     }
     class complexElement << (S,Aquamarine) >> {
         - attributeY string

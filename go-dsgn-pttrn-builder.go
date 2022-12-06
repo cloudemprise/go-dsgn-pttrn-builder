@@ -8,7 +8,7 @@ import "fmt"
 // directory Object contains the specification of how
 // a Complex-Element is to be built.
 type director struct {
-	buildSpecification iBuilder
+	builderConfiguration iBuilder
 }
 
 // A free-standing director constructor.
@@ -19,15 +19,15 @@ func newDirector() *director {
 }
 
 // Pass-in specification of a Complex-Element.
-func (d *director) setBuilderConfiguration(specification iBuilder) {
-	d.buildSpecification = specification
+func (d *director) setBuilderConfiguration(builderConfiguration iBuilder) {
+	d.builderConfiguration = builderConfiguration
 }
 
 // abstract Complex-Element Builder
-func (d *director) buildComplexElement() complexElement {
-	d.buildSpecification.setAttributeY()
-	d.buildSpecification.setAttributeZ()
-	return d.buildSpecification.newComplexElement()
+func (d *director) getComplexElement() complexElement {
+	d.builderConfiguration.setAttributeY()
+	d.builderConfiguration.setAttributeZ()
+	return d.builderConfiguration.newComplexElement()
 }
 
 // END : director
@@ -168,7 +168,7 @@ func main() {
 	// set builder configuration
 	myDirector.setBuilderConfiguration(my1stRequest)
 	// create the specified object
-	my1stElement := myDirector.buildComplexElement()
+	my1stElement := myDirector.getComplexElement()
 
 	// validate object specification
 	fmt.Printf("1st Complex-Element Attribute Y: %s\n", my1stElement.attributeY)
@@ -180,7 +180,7 @@ func main() {
 	// set builder configuration
 	myDirector.setBuilderConfiguration(my2ndRequest)
 	// create the specified object
-	my2ndElement := myDirector.buildComplexElement()
+	my2ndElement := myDirector.getComplexElement()
 
 	// validate object specification
 	fmt.Printf("2nd Complex-Element Attribute Y: %s\n", my2ndElement.attributeY)
