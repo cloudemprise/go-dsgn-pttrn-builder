@@ -39,7 +39,7 @@ namespace builder {
     }
 }
 
-"builder.director" *-- "builder.iBuilder"
+"builder.director" *--> "builder.iBuilder"
 
 /' together {
     class builder.customElementA
@@ -49,8 +49,8 @@ namespace builder {
 "builder.iBuilder" <|.. "builder.customElementB"
 
 'hide builder.complexElement
-'"builder.iBuilder" .> "builder.complexElement"
-"builder.iBuilder" .[dotted,thickness=1]> "builder.complexElement"
+"builder.iBuilder" .> "builder.complexElement"
+'"builder.iBuilder" .[dotted,thickness=1]> "builder.complexElement"
 
 
 @enduml
